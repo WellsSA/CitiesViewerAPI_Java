@@ -28,13 +28,13 @@ public class CityResource {
 	private CityRepository cityRepo;
 	
 	@GetMapping ("/list")
-	public List<City> todosOsLivros (){
+	public List<City> getAll (){
 		return cityRepo.findAll();
 	}
 
 	@PostMapping ("/save")
 	//@ResponseStatus (HttpStatus.CREATED)
-	public ResponseEntity<City> salvar (@RequestBody City city, HttpServletResponse response) {
+	public ResponseEntity<City> save (@RequestBody City city, HttpServletResponse response) {
 		City c = cityRepo.save(city);
 		URI uri = ServletUriComponentsBuilder
 					.fromCurrentServletMapping()
@@ -47,7 +47,12 @@ public class CityResource {
 	}
 	
 	@GetMapping ("/{id}")
-	public City buscarPeloId (@PathVariable Long id) {
+	public City findById (@PathVariable Long id) {
 		return cityRepo.getOne(id);
+	}
+	
+	@GetMapping ("list/firstLetter/{letter}")
+	public List<City> findByNameFirstLetter (@PathVariable String letter) {
+		return cityRepo.findAllByNameIsStartingWith(letter);
 	}
 }
