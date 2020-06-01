@@ -34,7 +34,6 @@ public class CityResource {
 	}
 
 	@PostMapping ("/save")
-	//@ResponseStatus (HttpStatus.CREATED)
 	public ResponseEntity<City> save (@RequestBody City city, HttpServletResponse response) {
 		City c = cityRepo.save(city);
 		URI uri = ServletUriComponentsBuilder
@@ -43,7 +42,6 @@ public class CityResource {
 					.buildAndExpand(c.getId())
 					.toUri();
 
-		// response.setHeader("Location", uri.toASCIIString());
 		return ResponseEntity.created(uri).body(c);
 	}
 	
@@ -59,7 +57,6 @@ public class CityResource {
 	
 	@GetMapping ("find")
 	public City findLatitudeLongitude (@RequestParam("latitude") Double latitude, @RequestParam("longitude") Double longitude) {
-		System.out.println(latitude + " aaaaaaaaa " + longitude);
 		return cityRepo.findLatitudeLongitude(latitude, longitude);
 	}
 }
