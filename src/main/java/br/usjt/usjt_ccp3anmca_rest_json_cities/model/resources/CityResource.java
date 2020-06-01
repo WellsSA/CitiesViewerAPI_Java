@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -54,5 +55,11 @@ public class CityResource {
 	@GetMapping ("list/firstLetter/{letter}")
 	public List<City> findByNameFirstLetter (@PathVariable String letter) {
 		return cityRepo.findAllByNameIsStartingWith(letter);
+	}
+	
+	@GetMapping ("find")
+	public City findLatitudeLongitude (@RequestParam("latitude") Double latitude, @RequestParam("longitude") Double longitude) {
+		System.out.println(latitude + " aaaaaaaaa " + longitude);
+		return cityRepo.findLatitudeLongitude(latitude, longitude);
 	}
 }
